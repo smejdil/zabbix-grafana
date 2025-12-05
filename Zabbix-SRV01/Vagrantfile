@@ -17,18 +17,17 @@ Vagrant.configure("2") do |config|
     
     # Install Docker and Zabbix in Docker
     config.vm.provision "file", source: "pre-install-docker.yml", destination: "~/"
+    config.vm.provision "file", source: "install-zabbix-agent2.yml", destination: "~/"
 
     config.vm.provision "shell", inline: <<-SHELL
 	sudo apt update
 	sudo apt install -y ansible net-tools git
+	sudo ansible-galaxy collection install community.zabbix --force
+	sudo ansible-playbook install-zabbix-agent2.yml
 	ansible-playbook pre-install-docker.yml
 	git clone https://github.com/zabbix/zabbix-docker
 	cd zabbix-docker
 	sudo docker compose -f ./docker-compose_v3_ubuntu_pgsql_latest.yaml up -d
-
     SHELL
     
-    # Install Zabbix Agent2 in VM
-    #config.vm.provision "shell", path: "install-zabbix-agent2.sh"
-
 end

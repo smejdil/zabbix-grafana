@@ -3,7 +3,9 @@
 sudo apt install -y ansible
 sudo apt install -y sshpass
 
-ansible-galaxy collection install community.zabbix --force
-ansible-galaxy collection install community.grafana --force
+sudo ansible-galaxy collection install community.zabbix --force
+sudo ansible-galaxy collection install community.grafana --force
+
+sudo ansible-playbook install-zabbix-agent2.yml
 
 # EOF
