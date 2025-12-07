@@ -81,4 +81,27 @@
         tags:
           - tag: target
             value: mysql
+
+    - name: Create a new host Bastion
+      community.zabbix.zabbix_host:
+        state: present
+        host_name: bastion
+        visible_name: Bastion
+        description: Operation server
+        host_groups:
+          - Linux servers
+        link_templates:
+          - Linux by Zabbix agent
+        status: enabled
+        inventory_mode: automatic
+        interfaces:
+          - type: 1
+            main: 1
+            useip: 1
+            ip: 192.168.42.4
+            dns: ""
+            port: "10050"
+        tags:
+          - tag: target
+            value: linux            
 ...
