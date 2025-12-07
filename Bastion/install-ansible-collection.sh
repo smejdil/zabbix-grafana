@@ -1,7 +1,7 @@
 #!/bin/sh
 
 sudo apt install -y ansible
-sudo apt install -y sshpass
+sudo apt install -y sshpass joe
 
 sudo ansible-galaxy collection install community.zabbix --force
 sudo ansible-galaxy collection install community.grafana --force
