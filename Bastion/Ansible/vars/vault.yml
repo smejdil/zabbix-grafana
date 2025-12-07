@@ -1,4 +1,4 @@
 zabbix_ansible_user: Admin
 zabbix_ansible_password: zabbix
-zabbix_ansible_server: 192.168.42.3
+zabbix_ansible_server: 192.168.42.2
 zabbix_user_default_password: Zabbix_Grafana_2025

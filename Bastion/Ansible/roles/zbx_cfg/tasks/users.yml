@@ -45,6 +45,5 @@
     state: present
   loop:
     - { username: ansible, name: API, surname: Ansible, role_name: Super admin role, sendto: ansible@pfsense.cz }
-    - { username: grafana, name: API, surname: Grafana, role_name: Super admin role, sendto: ansible@pfsense.cz }
     - { username: smaly, name: Lukáš, surname: Malý, role_name: "Super admin role", sendto: Iam@LukasMaly.Name }
 ...
