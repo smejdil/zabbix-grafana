@@ -9,8 +9,6 @@
         zabbix_agent_version: 7.4
         zabbix_agent2: true
         zabbix_agent_hostname: grafana
-        zabbix_agent_listenip:
-          - "192.168.42.3"
         zabbix_agent_server: 192.168.42.2
         zabbix_agent_serveractive: 192.168.42.2
         zabbix_agent_host_state: present

@@ -103,5 +103,55 @@
             port: "10050"
         tags:
           - tag: target
-            value: linux            
+            value: linux
+
+    - name: Create a new host Grafana
+      community.zabbix.zabbix_host:
+        state: present
+        host_name: grafana
+        visible_name: Grafana-SRV02
+        description: Presentation server
+        host_groups:
+          - Linux servers
+        link_templates:
+          - Linux by Zabbix agent
+          - Docker by Zabbix agent 2
+        status: enabled
+        inventory_mode: automatic
+        interfaces:
+          - type: 1
+            main: 1
+            useip: 1
+            ip: 192.168.42.3
+            dns: ""
+            port: "10050"
+        tags:
+          - tag: target
+            value: linux
+
+    - name: Create a new host Zabbix
+      community.zabbix.zabbix_host:
+        state: present
+        host_name: zabbix
+        visible_name: Zabbix-SRV01
+        description: Monitoring server
+        host_groups:
+          - Linux servers
+          - Zabbix servers
+        link_templates:
+          - Linux by Zabbix agent
+          - Docker by Zabbix agent 2
+          - Zabbix server health
+        status: enabled
+        inventory_mode: automatic
+        interfaces:
+          - type: 1
+            main: 1
+            useip: 1
+            ip: 192.168.42.2
+            dns: ""
+            port: "10050"
+        tags:
+          - tag: target
+            value: linux
 ...
