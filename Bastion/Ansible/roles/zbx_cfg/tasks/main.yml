@@ -1,0 +1,7 @@
+---
+- include_tasks: users.yml
+- include_tasks: tokens.yml
+- include_tasks: host_groups.yml
+- include_tasks: templates.yml
+- include_tasks: housekeeping.yml
+...

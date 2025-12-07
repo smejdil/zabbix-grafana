@@ -1,0 +1,75 @@
+---
+- name: Set credentials to access Zabbix Server API
+  ansible.builtin.set_fact:
+    ansible_user: "{{ zabbix_ansible_user }}"
+    ansible_httpapi_pass: "{{ zabbix_ansible_password }}"
+
+- name: create a new token for Admin user
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 80
+    ansible_httpapi_use_ssl: false
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbix"
+    ansible_host: "{{ zabbix_ansible_server }}"
+  community.zabbix.zabbix_token:
+    name: Remote API admin token
+    description: Admin token
+    username: Admin
+    status: true
+    expires_at: 0
+    generate_token: true
+    state: present
+  register: token_output1
+
+- name: Show admin token
+  debug:
+    msg: "Token: {{ token_output1.token }}"
+
+- name: create a new token for Ansible user
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 80
+    ansible_httpapi_use_ssl: false
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbix"
+    ansible_host: "{{ zabbix_ansible_server }}"
+  community.zabbix.zabbix_token:
+    name: Remote API token Ansible
+    description: API ansible token
+    username: ansible
+    status: true
+    expires_at: 0
+    generate_token: true
+    state: present
+  register: token_output2
+
+- name: Show ansible token
+  debug:
+    msg: "Token: {{ token_output2.token }}"
+
+- name: create a new token for grafana user
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 80
+    ansible_httpapi_use_ssl: flase
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbix"
+    ansible_host: "{{ zabbix_ansible_server }}"
+  community.zabbix.zabbix_token:
+    name: Remote API grafana token
+    description: API grafana token
+    username: grafana
+    status: true
+    expires_at: 0
+    generate_token: true
+    state: present
+  register: token_output3
+
+- name: Show grafana token
+  debug:
+    msg: "Token: {{ token_output3.token }}"
+...

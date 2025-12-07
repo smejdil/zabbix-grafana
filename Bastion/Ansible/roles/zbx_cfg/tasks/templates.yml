@@ -1,0 +1,21 @@
+---
+- name: Set credentials to access Zabbix Server API
+  ansible.builtin.set_fact:
+    ansible_user: "{{ zabbix_ansible_user }}"
+    ansible_httpapi_pass: "{{ zabbix_ansible_password }}"
+
+- name: import template's from YAML
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 80
+    ansible_httpapi_use_ssl: false
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbix"
+    ansible_host: "{{ zabbix_ansible_server }}"
+  community.zabbix.zabbix_template:
+    template_yaml: "{{ lookup('file', item) }}"
+    state: present
+  loop:
+    - "../files/Linux_by_Zabbix_agent.yaml"
+...

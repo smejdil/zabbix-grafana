@@ -8,4 +8,6 @@ sudo ansible-galaxy collection install community.grafana --force
 
 sudo ansible-playbook install-zabbix-agent2.yml
 
+git clone https://github.com/smejdil/zabbix-grafana.git
+
 # EOF

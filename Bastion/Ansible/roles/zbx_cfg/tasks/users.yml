@@ -1,0 +1,50 @@
+---
+- name: Set credentials to access Zabbix Server API
+  ansible.builtin.set_fact:
+    ansible_user: "{{ zabbix_ansible_user }}"
+    ansible_httpapi_pass: "{{ zabbix_ansible_password }}"
+
+- name: create a new zabbix user {{ item.username }}
+  vars:
+    ansible_network_os: community.zabbix.zabbix
+    ansible_connection: httpapi
+    ansible_httpapi_port: 80
+    ansible_httpapi_use_ssl: false
+    ansible_httpapi_validate_certs: false
+    ansible_zabbix_url_path: "zabbix"
+    ansible_host: "{{ zabbix_ansible_server }}"
+  community.zabbix.zabbix_user:
+    username: "{{ item.username }}"
+    name: "{{ item.name }}"
+    surname: "{{ item.surname }}"
+    usrgrps:
+      - Zabbix administrators
+    role_name: "{{ item.role_name }}"
+    passwd: "{{ zabbix_user_default_password }}"
+    lang: en_US
+    theme: blue-theme
+    timezone: Europe/Prague
+    autologin: no
+    autologout: "0"
+    refresh: "30"
+    rows_per_page: "200"
+    after_login_url: ""
+    user_medias:
+      - mediatype: Email
+        sendto:
+          - "{{ item.sendto }}"
+        period: 1-7,00:00-24:00
+        severity:
+          not_classified: no
+          information: yes
+          warning: yes
+          average: yes
+          high: yes
+          disaster: yes
+        active: no
+    state: present
+  loop:
+    - { username: ansible, name: API, surname: Ansible, role_name: Super admin role, sendto: ansible@pfsense.cz }
+    - { username: grafana, name: API, surname: Grafana, role_name: Super admin role, sendto: ansible@pfsense.cz }
+    - { username: smaly, name: Lukáš, surname: Malý, role_name: "Super admin role", sendto: Iam@LukasMaly.Name }
+...
