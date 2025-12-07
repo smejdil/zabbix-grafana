@@ -1,8 +1,9 @@
 ---
 - name: Set credentials to access Zabbix Server API
-  ansible.builtin.set_fact:
-    ansible_user: "{{ zabbix_ansible_user }}"
-    ansible_httpapi_pass: "{{ zabbix_ansible_password }}"
+  hosts: localhost
+  vars_files:
+    - vars/vault.yml
+
   vars:
     ansible_network_os: community.zabbix.zabbix
     ansible_connection: httpapi
@@ -27,7 +28,7 @@
     - name: Create a new host geodronari.cz
       community.zabbix.zabbix_host:
         state: present
-        host_name: sposdk.cz
+        host_name: geodronari.cz
         visible_name: Geodronari Web Cert
         description: Web server Geodronari
         host_groups:
