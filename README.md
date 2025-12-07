@@ -8,6 +8,13 @@ Automatic installation and configuration of Zabbix and Grafana
 ./do_vagrant.sh
 ...
 ./destroy_vagrant.sh
+
+cd Bastion
+vagrant ssh
+sudo su -
+cd zabbix-grafana/Bastion/Ansible
+ansible-galaxy collection install community.zabbix --force
+ansible-playbook configure-zabbix-server.yml
 ```
 
 ## URL for Web GUI Zabbix and Grafana
